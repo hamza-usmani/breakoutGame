@@ -1,7 +1,7 @@
 #include "Grid.hpp"
 
 Grid::Grid(int rows, int cols, const int width, const int height, bool random): rows(rows), cols(cols){
-    blocksLeft = rows * cols;
+    blocksLeft = 0;
     blockSpacing = 10;
     blockWidth = (width - ((cols + 1) * blockSpacing)) / cols;
     blockHeight = height/20;
@@ -12,10 +12,12 @@ Grid::Grid(int rows, int cols, const int width, const int height, bool random): 
             if (random){
                 Cell tmpCell = Cell(j*blockWidth + (j+1)*blockSpacing, i*blockHeight + i*blockSpacing, static_cast<State>(rand() % 5));
                 tmp.emplace_back(tmpCell);
+                blocksLeft++;
             }
             else if (basic) {
                 Cell tmpCell = Cell(j*blockWidth + (j+1)*blockSpacing, i*blockHeight + i*blockSpacing, static_cast<State>(rand() % 4 + 1));
                 tmp.emplace_back(tmpCell);
+                blocksLeft++;
             }
             else{
                 if (i == 0){
@@ -24,10 +26,12 @@ Grid::Grid(int rows, int cols, const int width, const int height, bool random): 
                 if (i == j || cols - i == j || i + 1 == j || cols - i - 1 == j || i - 1 == j || cols - i + 1 == j) {
                     Cell tmpCell = Cell(j*blockWidth + (j+1)*blockSpacing, i*blockHeight + i*blockSpacing, static_cast<State>(rand() % 4 + 1));
                     tmp.emplace_back(tmpCell);
+                    blocksLeft++;
                 }
                 else {
                     Cell tmpCell = Cell(j*blockWidth + (j+1)*blockSpacing, i*blockHeight + i*blockSpacing, State::EMPTY);
                     tmp.emplace_back(tmpCell);
+                    blocksLeft++;
                 }
             }
         }

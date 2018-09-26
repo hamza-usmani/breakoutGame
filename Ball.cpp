@@ -49,10 +49,10 @@ void Ball::move(XInfo &xinfo, Paddle &paddle, Grid &grid){
                 (y + diameter/2 <= col.y + grid.blockHeight || y - diameter/2 <= col.y + grid.blockHeight) &&
                 col.cellState != State::EMPTY){
                     col.blockHit(xinfo);
-                    grid.blocksLeft--;
                     dirY = -dirY;
                     if (col.cellState == State::EMPTY){
                         score += 1;
+                        grid.blocksLeft--;
                     } 
                     if (score % 5 == 0 && speed < 10){
                         increaseSpeed();
